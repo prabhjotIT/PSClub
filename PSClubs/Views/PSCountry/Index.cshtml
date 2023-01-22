@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PSClubs.Models.Country>
+
+@{
+    ViewData["Title"] = "List of all countries";
+}
+
+<h1>List of all countries</h1>
+<!-- tempdata for no country selected -->        
+@if (TempData["NoSelectedCountryError"] != null)
+{
+<div class="alert alert-danger" role="alert">@TempData["NoSelectedCountryError"] </div>
+}
+<p>
+    <a asp-action="Create">Create New Country</a>
+</p>
+<table class="table table-sm table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalPattern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhonePattern)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FederalSalesTax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProvinceTerminology)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="PSProvinces" asp-action="index" asp-route-ccode="@item.CountryCode" asp-route-cname="@item.Name">@Html.DisplayFor(modelItem => item.CountryCode)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalPattern)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhonePattern)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FederalSalesTax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProvinceTerminology)
+                </td>
+                
+                <td>
+                    @if (User.IsInRole("administrators") || User.IsInRole("medicalStaff")) {
+                    <a asp-action="Edit" asp-route-id="@item.CountryCode">Edit |</a> 
+                                                                                   }
+                    <a asp-action="Details" asp-route-id="@item.CountryCode">Details</a> |
+                    @if (User.IsInRole("administrators") || User.IsInRole("medicalStaff")) { 
+                    <a asp-action="Delete" asp-route-id="@item.CountryCode">Delete</a>}
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

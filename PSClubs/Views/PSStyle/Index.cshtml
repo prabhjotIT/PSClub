@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PSClubs.Models.Style>
+
+@{
+    ViewData["Title"] = "List of all Style ";
+}
+
+<h1>List of all Style </h1>
+
+<p>
+    <a asp-action="Create">Create New Style</a>
+</p>
+<table class="table table-sm table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StyleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+       
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StyleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StyleName">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StyleName">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StyleName">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

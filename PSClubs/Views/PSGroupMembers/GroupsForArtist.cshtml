@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PSClubs.Models.GroupsForArtist>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Groups For Artist";
+}
+<div class="alert alert-danger" role="alert">@TempData["artistIsNotAGroup"]</div>
+@if (@TempData["artistIsNotAGroup"] != null)
+{
+    ViewData["Title"] = $"Groups with {Context.Session.GetString("name")}";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.GroupName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLeft)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            
+        <tr>
+
+            <td>
+                <a  asp-controller="PSGroupMembers" asp-action="Index" asp-route-id="@Context.Session.GetString("id")">@Html.DisplayFor(modelItem => item.GroupName)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateJoined)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateLeft)
+            </td>
+        </tr>
+        
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-controller="PSArtists" asp-action="Index">Back to List</a>
+</div>
+

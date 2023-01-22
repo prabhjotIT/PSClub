@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = $"Confirm delete of role " + TempData["deleterole"];
+}
+@if (TempData["deletefailed"] != null)
+{
+    {<div class="alert alert-danger" role="alert">@TempData["deletefailed"]</div>}
+}
+<h1>@ViewData["Title"]</h1>
+<h3>Users in Role</h3>
+<dl class="row">
+
+    @foreach (var user in Model)
+    {
+
+        <dd class="col-sm-10">
+            @user.UserName
+        </dd>
+    }
+<form asp-action="DeleteExistingRole">
+    <input type="hidden" name="roleName" value="@TempData["deleterole"]" />
+    <input type="submit" value="Delete Confirmed" class="btn btn-danger" />
+    
+    <a asp-action="Index">Back to List</a>
+</form>
+
+</dl>
+
+

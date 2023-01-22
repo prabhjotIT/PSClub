@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PSClubs.Models.GroupMember>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = $"List of members of {Context.Session.GetString("name")}";
+}
+<h1> @ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdMember)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLeft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdGroupNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdMemberNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistIdGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistIdMember)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateJoined)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateLeft)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistIdGroupNavigation.ArtistId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistIdMemberNavigation.ArtistId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-ArtistIdGroup="@item.ArtistIdGroup" asp-route-ArtistIdMember="@item.ArtistIdMember">Edit</a> |
+                    <a asp-action="Details" asp-route-ArtistIdGroup="@item.ArtistIdGroup" asp-route-ArtistIdMember="@item.ArtistIdMember">Details</a> |
+                    <a asp-action="Delete" asp-route-ArtistIdGroup="@item.ArtistIdGroup" asp-route-ArtistIdMember="@item.ArtistIdMember">Delete</a>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

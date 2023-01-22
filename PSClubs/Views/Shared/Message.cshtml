@@ -1,0 +1,5 @@
+﻿<!--for showing message where this partial view is called-->
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Message"]</div>
+}

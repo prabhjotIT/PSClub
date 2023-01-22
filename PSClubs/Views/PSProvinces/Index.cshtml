@@ -1,0 +1,12 @@
+﻿@model IEnumerable<PSClubs.Models.Province>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = $"Provinces for {Context.Session.GetString("cname")}";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@Html.Partial("ListOfProvinces")

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = "Users in Role " + TempData["roleName"];
+}
+
+<h1>@ViewData["Title"] </h1>
+
+@if (TempData["useraddResult"] != null)
+{<div class="alert alert-danger" role="alert">@TempData["useraddResult"]</div>}
+
+<form asp-action="AddUserInRole">
+    <div class="form-group">
+        <!--<label name="Name" class="control-label"></label>-->
+        <label>Users Not in role </label>
+        <select name="Name" class="form-control" asp-items="ViewBag.leftusers"></select>
+        <input type="hidden" name="roleName" value="@TempData["roleName"]" class="form-control" />
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table table-striped table-sm">
+    <thead class=" thead-dark">
+        <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+
+                <td>
+                    @if (TempData["roleName"].Equals("administrators") && User.IsInRole("administrators") && item.UserName.Equals(User.Identity.Name))
+                    {
+                    }
+                    else
+                    {
+                        <a class="btn btn-link" asp-action="RemoveUserInRole" asp-route-id="@item.Id" asp-route-roleName="@TempData["roleName"]">Remove</a>
+
+                    }
+
+                    
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

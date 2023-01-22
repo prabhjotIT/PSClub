@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PSClubs.Models.GroupMemberWithNames>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = $"Group Member of the {Context.Session.GetString("name")}";
+}
+<h1>@ViewData["Title"]</h1>
+    
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdMember)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLeft)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in
+
+         Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistIdMember)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateJoined)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateLeft)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller="PSArtists" asp-action="Index">Back to List</a>
+</div>
+
